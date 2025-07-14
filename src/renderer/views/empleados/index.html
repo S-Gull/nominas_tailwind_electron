@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+  window.api.invoke('obtenerEmpleados_vc_ga')
+    .then((empleados) => {
+      if (empleados.error) {
+        alert('Error: ' + empleados.mensaje);
+        return;
+      }
+      console.log('📦 Empleados:', empleados);
+      // aquí los insertas al DOM
+    });
+
+  // Para crear un nuevo empleado desde un formulario:
+  document.getElementById('btnGuardar').addEventListener('click', () => {
+    const datos = {
+      nombre_completo_vc_ga: document.getElementById('nombre').value,
+      cedula_vc_ga: document.getElementById('cedula').value,
+      rif_vc_ga: document.getElementById('rif').value,
+    };
+
+    window.api.invoke('crearEmpleado_vc_ga', datos)
+      .then((res) => {
+        if (res.error) return alert(res.mensaje);
+        alert('Empleado creado con ID: ' + res.id);
+      });
+  });
+</script>
+
+</body>
+</html>
