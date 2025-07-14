@@ -1,40 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Empleados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../public/css/input.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
-<body>
+<body class="bg-dark-900 text-white min-h-screen grid grid-rows-[auto_1fr_auto]">
+
+  <!-- Header -->
+  <header class="bg-dark-800 p-5 shadow-lg">
+    <div class="flex justify-between items-center container mx-auto">
+      <h1 class="text-2xl font-bold">Gestión <span class="text-accent1">Empleados</span></h1>
+      <button id="toggleTheme" class="p-2 rounded-full bg-dark-700 hover:bg-dark-600">
+        <i class="fas fa-moon text-white"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-2 gap-6 animate__animated animate__fadeIn">
     
+    <!-- Formulario -->
+    <section class="bg-dark-800 p-6 rounded-xl shadow-xl">
+<div id="modalEmpleado_vc_ga" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+  <div class="bg-white rounded-xl w-full max-w-3xl p-6 shadow-lg overflow-y-auto max-h-screen">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Formulario de Empleado</h2>
 
+    <form id="formEmpleado_vc_ga" class="space-y-4">
+      <!-- Nombre completo -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Nombre completo</label>
+        <input type="text" name="nombre_completo_vc_ga" required minlength="3" maxlength="100"
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+      </div>
 
-    <script>
-  window.api.invoke('obtenerEmpleados_vc_ga')
-    .then((empleados) => {
-      if (empleados.error) {
-        alert('Error: ' + empleados.mensaje);
-        return;
-      }
-      console.log('📦 Empleados:', empleados);
-      // aquí los insertas al DOM
-    });
+      <!-- Cédula de identidad (V-12345678) -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Cédula</label>
+        <input type="text" name="cedula_vc_ga" required pattern="^(V|E)-(\d{7,8})$"
+               title="Formato válido: V-12345678"
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+      </div>
 
-  // Para crear un nuevo empleado desde un formulario:
-  document.getElementById('btnGuardar').addEventListener('click', () => {
-    const datos = {
-      nombre_completo_vc_ga: document.getElementById('nombre').value,
-      cedula_vc_ga: document.getElementById('cedula').value,
-      rif_vc_ga: document.getElementById('rif').value,
-    };
+      <!-- RIF (ej. J-12345678-9) -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">RIF</label>
+        <input type="text" name="rif_vc_ga" required
+               pattern="^(V|E|J|G)-(\d{7,8})-(\d)$" title="Formato válido: J-12345678-9"
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+      </div>
 
-    window.api.invoke('crearEmpleado_vc_ga', datos)
-      .then((res) => {
-        if (res.error) return alert(res.mensaje);
-        alert('Empleado creado con ID: ' + res.id);
-      });
-  });
-</script>
+      <!-- Fecha de nacimiento -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Fecha de nacimiento</label>
+        <input type="date" name="fecha_nacimiento_vc_ga" required
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+      </div>
 
+      <!-- Fecha de ingreso -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Fecha de ingreso</label>
+        <input type="date" name="fecha_ingreso_vc_ga" required
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <!-- Status -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Estado</label>
+        <select name="status_vc_ga" required
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+          <option value="">Seleccione una opción</option>
+          <option value="Trabajando">Trabajando</option>
+          <option value="De Vacaciones">De Vacaciones</option>
+        </select>
+      </div>
+
+      <!-- Correo electrónico -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+        <input type="email" name="correo_electronico_vc_ga" required
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+        <input type="tel" name="telefono_vc_ga" required pattern="^\d{10,15}$" title="Solo números (10 a 15 dígitos)"
+               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" />
+      </div>
+
+      <!-- ID Departamento -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Departamento</label>
+        <select name="id_departamento_vc_ga" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+          <option value="">Seleccione uno</option>
+          <!-- Opciones dinámicas desde JS -->
+        </select>
+      </div>
+
+      <!-- ID Rol -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Rol</label>
+        <select name="id_rol_vc_ga" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+          <option value="">Seleccione uno</option>
+          <!-- Opciones dinámicas desde JS -->
+        </select>
+      </div>
+
+      <!-- ID Cargo -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Cargo</label>
+        <select name="id_cargo_vc_ga" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+          <option value="">Seleccione uno</option>
+          <!-- Opciones dinámicas desde JS -->
+        </select>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-end space-x-3 mt-6">
+        <button type="button" id="cancelarEmpleado_vc_ga"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded">
+          Cancelar
+        </button>
+        <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded">
+          Guardar Empleado
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+    </section>
+
+    <!-- Lista de empleados -->
+    <section class="bg-dark-800 p-6 rounded-xl shadow-xl">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Lista de Empleados</h2>
+        <input type="text" id="buscarEmpleado" placeholder="Buscar..."
+          class="px-4 py-2 rounded-lg bg-dark-700 border border-gray-700 text-white"/>
+      </div>
+
+      <div id="listaEmpleados" class="space-y-3">
+        <!-- Aquí se renderizarán los empleados dinámicamente -->
+        <div class="text-center text-gray-400 py-8">
+          <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+          <p>Cargando empleados...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark-800 p-4 text-center text-sm text-gray-400 shadow-inner">
+    © 2025 Sistema de Nómina – Todos los derechos reservados.
+  </footer>
+
+<script type="module" src="../../public/js/formEmpleado.js"></scri>
 </body>
 </html>

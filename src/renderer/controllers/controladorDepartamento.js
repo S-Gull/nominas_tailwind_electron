@@ -1,10 +1,9 @@
-
 const {
   crearDepartamento_vc_ga,
   obtenerDepartamentos_vc_ga,
   actualizarDepartamento_vc_ga,
   eliminarDepartamento_vc_ga
-} = require('../models/departamento');
+} = require('../models/departamentoModel_vc_ga');
 
 const obtenerDepartamentosController_vc_ga = async (req, res) => {
   console.log("[GET] /api/departamentos");

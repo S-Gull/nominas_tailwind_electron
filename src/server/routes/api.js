@@ -7,26 +7,26 @@ const {
   crearEmpleado_vc_ga,
   actualizarEmpleado_vc_ga,
   eliminarEmpleado_vc_ga
-} = require('../controllers/usuario');
+} = require('../controllers/usuarioController_vc_ga');
 
 const {
   obtenerSucursalesController_vc_ga,
   crearSucursalController_vc_ga,
   actualizarSucursalController_vc_ga,
   eliminarSucursalController_vc_ga
-} = require('../controllers/sucursal');
+} = require('../controllers/sucursalController_vc_ga');
 
 const {
   obtenerDepartamentosController_vc_ga,
   crearDepartamentoController_vc_ga,
   actualizarDepartamentoController_vc_ga,
   eliminarDepartamentoController_vc_ga
-} = require('../controllers/departamento');
+} = require('../controllers/departamentoController_vc_ga');
 
 const {
   obtenerHistorialSalarios_vc_ga,
   crearSalarioParaEmpleado_vc_ga
-} = require('../controllers/salarioHistorico');
+} = require('../controllers/salarioHistoricoController_vc_ga');
 
 // Empleados
 router.get('/empleados', obtenerEmpleados_vc_ga);
